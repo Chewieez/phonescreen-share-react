@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import firebase from './fire';
+import firebase from '../fire';
 import FileUploader from 'react-firebase-file-uploader';
+import DisplayScreenshots from './DisplayScreenshots';
 
 
-class ProfilePage extends Component {
+class UploadScreenshot extends Component {
     state = {
         screenshot: '',
         isUploading: false,
@@ -28,15 +29,6 @@ class ProfilePage extends Component {
             });
     };
     render() {
-        // format jsx for each img in the array of screenshots.
-        // replace this code with the spread operator in the return function below
-
-        // const screenshotIMGs = this.state.screenshotURL.map((item, i) => 
-        //     <div key={i}>
-        //         <img src={item} alt=""/>
-        //     </div>
-        // );
-
 
         return (
             <div>
@@ -57,20 +49,12 @@ class ProfilePage extends Component {
                     />
                 </form>
 
-                <div className="Screenshot-Display">
-                {/* use spread operator to iterate over the array of screenshots and format jsx */}
-                    {[...this.state.screenshotURL].map((item, i) =>
-                        <div key={i.toString()}>
-                            <img src={item} alt="" />
-                        </div>
-                    )}
-                </div>
-
+                <DisplayScreenshots screenshotURL={this.state.screenshotURL} />
             </div>
         );
     }
 }
-export default ProfilePage;
+export default UploadScreenshot;
 
 
 
