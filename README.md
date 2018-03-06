@@ -1,3 +1,8 @@
+## This app is in active development and not full functioning yet. 
+When completed, this app will allow a user to upload screenshots of their smartphone home screen setups and share with other users. 
+OCR maybe implemented to extract application names from screenshots. 
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
