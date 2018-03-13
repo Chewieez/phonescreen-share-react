@@ -7,14 +7,30 @@ import UploadScreenshot from './UploadScreenshot';
 
 class Dashboard extends Component {
     state = {
-        screenshotURL: []
+        screenshotURL: [],
+        remoteURL: "https://phonescreen-share.firebaseio.com/messages.json"
     };
     
     handleScreenshotUrls = (item) => {
+        // put parenthesis around the object to be set in state, so that the code inside the brackets is not interpreted as a function to call, but as an object.
         this.setState(previousState => ({
             screenshotURL: [...previousState.screenshotURL, item]
         }));
     }
+
+
+    // componentDidMount() {
+    //     let xhr = new XMLHttpRequest();
+    //     xhr.open('GET', this.state.remoteURL, true)
+    
+    //     xhr.onload = function() {
+    //         let data = JSON.parse(xhr.responseText)
+    //         handleScreenshotUrls(data)
+    //     }.bind(this)
+    
+    //     xhr.send()
+    // }
+
 
     render() {
         return (

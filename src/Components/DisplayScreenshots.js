@@ -1,14 +1,20 @@
-import React, { Component } from 'react';import './App.css';
+import React, { Component } from 'react';
+import './App.css';
 
 
 class DisplayScreenshots extends Component {
+
+    constructor(props) {
+        super(props)
+    }
+
 
     render() {
 
         return (
             <div className="Screenshot-Display">
-                {/* use spread operator to iterate over the array of screenshots and format jsx */}
-                {[...this.props.screenshotURL].map((item, i) =>
+                
+                {this.props.screenshotURL.map((item, i) =>
                     <div key={i.toString()}>
                         <img src={item} alt="" />
                     </div>
