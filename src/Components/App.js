@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import firebase from '../fire';
 import DisplayScreenshots from './DisplayScreenshots';
+import DisplayMessages from './DisplayMessages';
 import UploadScreenshot from './UploadScreenshot';
 
 
 class Dashboard extends Component {
     state = {
         screenshotURL: [],
+        messages: [],
         remoteURL: "https://phonescreen-share.firebaseio.com/messages.json"
     };
     
@@ -18,26 +20,42 @@ class Dashboard extends Component {
         }));
     }
 
+    handleMessages = (item) => {
+        // put parenthesis around the object to be set in state, so that the code inside the brackets is not interpreted as a function to call, but as an object.
+        this.setState(previousState => ({
+            messages: [...previousState.messages, item]
+        }));
+    }
 
-    // componentDidMount() {
-    //     let xhr = new XMLHttpRequest();
-    //     xhr.open('GET', this.state.remoteURL, true)
+
+    componentDidMount() {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', this.state.remoteURL, true)
     
-    //     xhr.onload = function() {
-    //         let data = JSON.parse(xhr.responseText)
-    //         handleScreenshotUrls(data)
-    //     }.bind(this)
+        xhr.onload = function() {
+            let data = JSON.parse(xhr.responseText)
+            // convert the returned data object into an array
+            let messages = Object.keys(data)
+            .map(key => {
+                return data[key]
+            })
+            // iterate through the array of messages and send them to handleMessages to be added to state
+            messages.forEach(m => this.handleMessages(m))
+        }.bind(this)
     
-    //     xhr.send()
-    // }
+        xhr.send()
+    }
 
 
     render() {
         return (
             <div>
+                <DisplayMessages messages={this.state.messages} />
+                
                 <UploadScreenshot passedScreenShotUrls={this.handleScreenshotUrls} />
 
                 <DisplayScreenshots screenshotURL={this.state.screenshotURL} />
+                
             </div>
         );
     }
